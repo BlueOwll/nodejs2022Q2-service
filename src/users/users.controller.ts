@@ -7,10 +7,13 @@ import {
   Param,
   Delete,
   Put,
+  NotFoundException,
 } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdatePasswordDto } from './dto/update-password.dto';
+import { FindOneParams } from './dto/findOneParams.dto';
+import { Http2ServerRequest } from 'http2';
 
 @Controller('user')
 export class UsersController {
@@ -23,13 +26,16 @@ export class UsersController {
 
   @Get()
   findAll() {
-    return [{ users: 'users' }];
-    // return this.usersService.findAll();
+    return this.usersService.findAll();
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.usersService.findOne(+id);
+  findOne(@Param() params: FindOneParams) {
+    const user = this.usersService.findOne(params.id);
+    if (user) {
+      return user;
+    }
+    throw new NotFoundException('User not found');
   }
 
   @Put(':id')

@@ -1,19 +1,33 @@
 import { Injectable } from '@nestjs/common';
+import { UsersDbStorage } from 'src/database/users-db/users-db.storage';
 import { CreateUserDto } from './dto/create-user.dto';
+import { OutputUserDto } from './dto/output-user.dto';
 import { UpdatePasswordDto } from './dto/update-password.dto';
 
 @Injectable()
 export class UsersService {
-  create(createUserDto: CreateUserDto) {
-    return 'This action adds a new user';
+  constructor(private readonly usersDbStorage: UsersDbStorage) {}
+
+  create(createUserDto: CreateUserDto): OutputUserDto {
+    const { password, ...outputUser } =
+      this.usersDbStorage.create(createUserDto);
+    return outputUser as OutputUserDto;
   }
 
   findAll() {
-    return `This action returns all users`;
+    return this.usersDbStorage.findAll().map((item) => {
+      const { password, ...outputUser } = item;
+      return outputUser as OutputUserDto;
+    });
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} user`;
+  findOne(id: string) {
+    const user = this.usersDbStorage.findOne(id);
+    if (user) {
+      const { password, ...outputUser } = user;
+      return outputUser as OutputUserDto;
+    }
+    return null;
   }
 
   update(id: number, updateUserDto: UpdatePasswordDto) {
