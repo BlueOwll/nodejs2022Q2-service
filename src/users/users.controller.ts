@@ -8,30 +8,39 @@ import {
   Delete,
   Put,
   NotFoundException,
+  HttpCode,
 } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdatePasswordDto } from './dto/update-password.dto';
-import { FindOneParams } from './dto/findOneParams.dto';
-import { Http2ServerRequest } from 'http2';
+import { FindOneParams } from './dto/find-one-params.dto';
+import { User } from './entities/user.entity';
+import { PasswordError } from 'src/database/users-db/users-db.storage';
+import { OutputUserDto } from './dto/output-user.dto';
+import {
+  ForbiddenException,
+  InternalServerErrorException,
+} from '@nestjs/common/exceptions';
 
 @Controller('user')
 export class UsersController {
   constructor(private readonly usersService: UsersService) {}
 
   @Post()
+  @HttpCode(201)
   create(@Body() createUserDto: CreateUserDto) {
     return this.usersService.create(createUserDto);
   }
 
   @Get()
-  findAll() {
-    return this.usersService.findAll();
+  async findAll() {
+    return await this.usersService.findAll();
   }
 
   @Get(':id')
-  findOne(@Param() params: FindOneParams) {
-    const user = this.usersService.findOne(params.id);
+  @HttpCode(200)
+  async findOne(@Param() params: FindOneParams) {
+    const user = await this.usersService.findOne(params.id);
     if (user) {
       return user;
     }
@@ -39,15 +48,37 @@ export class UsersController {
   }
 
   @Put(':id')
-  update(
-    @Param('id') id: string,
+  @HttpCode(200)
+  async update(
+    @Param() params: FindOneParams,
     @Body() updatePasswordDto: UpdatePasswordDto,
   ) {
-    return this.usersService.update(+id, updatePasswordDto);
+    let user: OutputUserDto;
+    try {
+      user = await this.usersService.changePassword(
+        params.id,
+        updatePasswordDto,
+      );
+    } catch (err) {
+      if (err instanceof PasswordError) {
+        throw new ForbiddenException(err.message);
+      } else {
+        throw new InternalServerErrorException('Something went wrong');
+      }
+    }
+    if (user) {
+      return user;
+    }
+    throw new NotFoundException('User not found');
   }
 
   @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.usersService.remove(+id);
+  @HttpCode(204)
+  async remove(@Param() params: FindOneParams) {
+    const user = await this.usersService.remove(params.id);
+    if (user) {
+      return;
+    }
+    throw new NotFoundException('User not found');
   }
 }
