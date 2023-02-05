@@ -1,11 +1,15 @@
 import { Injectable } from '@nestjs/common';
-import { TracksDbStorage } from 'src/database/users-db/tracks-db.storage';
+import { FavoritesDbStorage } from 'src/database/storages/favorites-db.storage';
+import { TracksDbStorage } from 'src/database/storages/tracks-db.storage';
 import { CreateTrackDto } from './dto/create-track.dto';
 import { UpdateTrackDto } from './dto/update-track.dto';
 
 @Injectable()
 export class TracksService {
-  constructor(private readonly tracksDbStorage: TracksDbStorage) {}
+  constructor(
+    private readonly tracksDbStorage: TracksDbStorage,
+    private readonly favoritesDbStorage: FavoritesDbStorage,
+  ) {}
 
   async create(createTrackDto: CreateTrackDto) {
     return await this.tracksDbStorage.create(createTrackDto);
@@ -19,11 +23,14 @@ export class TracksService {
     return this.tracksDbStorage.findOne(id);
   }
 
-  update(id: string, updateTrackDto: UpdateTrackDto) {
+  async update(id: string, updateTrackDto: UpdateTrackDto) {
     return this.tracksDbStorage.update(id, updateTrackDto);
   }
 
-  remove(id: string) {
-    return this.tracksDbStorage.delete(id);
+  async remove(id: string) {
+    const removed = await this.tracksDbStorage.delete(id);
+    if (!removed) return null;
+    await this.favoritesDbStorage.deleteTrack(id);
+    return removed;
   }
 }

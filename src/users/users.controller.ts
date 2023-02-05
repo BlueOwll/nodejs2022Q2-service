@@ -13,7 +13,7 @@ import { UsersService } from './users.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdatePasswordDto } from './dto/update-password.dto';
 import { FindOneParams } from './dto/find-one-params.dto';
-import { PasswordError } from 'src/database/users-db/users-db.storage';
+import { PasswordError } from 'src/database/storages/users-db.storage';
 import { OutputUserDto } from './dto/output-user.dto';
 import {
   ForbiddenException,

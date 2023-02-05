@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
-import { AlbumsDbStorage } from 'src/database/users-db/albums-db.storage';
-import { TracksDbStorage } from 'src/database/users-db/tracks-db.storage';
+import { AlbumsDbStorage } from 'src/database/storages/albums-db.storage';
+import { FavoritesDbStorage } from 'src/database/storages/favorites-db.storage';
+import { TracksDbStorage } from 'src/database/storages/tracks-db.storage';
 import { UpdateTrackDto } from 'src/tracks/dto/update-track.dto';
 import { CreateAlbumDto } from './dto/create-album.dto';
 import { UpdateAlbumDto } from './dto/update-album.dto';
@@ -10,6 +11,7 @@ export class AlbumsService {
   constructor(
     private readonly albumsDbStorage: AlbumsDbStorage,
     private readonly tracksDbStorage: TracksDbStorage,
+    private readonly favoritesDbStorage: FavoritesDbStorage,
   ) {}
 
   async create(createAlbumDto: CreateAlbumDto) {
@@ -40,6 +42,7 @@ export class AlbumsService {
         albumId: null,
       } as UpdateTrackDto);
     });
+    await this.favoritesDbStorage.deleteAlbum(id);
     return removedAlbum;
   }
 }

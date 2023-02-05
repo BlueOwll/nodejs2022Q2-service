@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { UsersDbStorage } from 'src/database/users-db/users-db.storage';
+import { UsersDbStorage } from 'src/database/storages/users-db.storage';
 import { CreateUserDto } from './dto/create-user.dto';
 import { OutputUserDto } from './dto/output-user.dto';
 import { UpdatePasswordDto } from './dto/update-password.dto';

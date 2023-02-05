@@ -14,7 +14,7 @@ import {
 import { TracksService } from './tracks.service';
 import { CreateTrackDto } from './dto/create-track.dto';
 import { UpdateTrackDto } from './dto/update-track.dto';
-import { UpdateError } from 'src/database/users-db/tracks-db.storage';
+import { UpdateError } from 'src/database/storages/tracks-db.storage';
 import { FindOneParams } from './dto/find-one-params.dto';
 import { Track } from './entities/track.entity';
 

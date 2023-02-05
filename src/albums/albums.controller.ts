@@ -11,7 +11,7 @@ import {
   BadRequestException,
   InternalServerErrorException,
 } from '@nestjs/common';
-import { UpdateError } from 'src/database/users-db/albums-db.storage';
+import { UpdateError } from 'src/database/storages/albums-db.storage';
 import { AlbumsService } from './albums.service';
 import { CreateAlbumDto } from './dto/create-album.dto';
 import { FindOneParams } from './dto/find-one-params.dto';

@@ -1,8 +1,9 @@
 import { Module } from '@nestjs/common';
-import { AlbumsDbStorage } from './users-db/albums-db.storage';
-import { ArtistsDbStorage } from './users-db/artists-db.storage';
-import { TracksDbStorage } from './users-db/tracks-db.storage';
-import { UsersDbStorage } from './users-db/users-db.storage';
+import { AlbumsDbStorage } from './storages/albums-db.storage';
+import { ArtistsDbStorage } from './storages/artists-db.storage';
+import { FavoritesDbStorage } from './storages/favorites-db.storage';
+import { TracksDbStorage } from './storages/tracks-db.storage';
+import { UsersDbStorage } from './storages/users-db.storage';
 
 @Module({
   providers: [
@@ -10,7 +11,14 @@ import { UsersDbStorage } from './users-db/users-db.storage';
     TracksDbStorage,
     ArtistsDbStorage,
     AlbumsDbStorage,
+    FavoritesDbStorage,
   ],
-  exports: [UsersDbStorage, TracksDbStorage, ArtistsDbStorage, AlbumsDbStorage],
+  exports: [
+    UsersDbStorage,
+    TracksDbStorage,
+    ArtistsDbStorage,
+    AlbumsDbStorage,
+    FavoritesDbStorage,
+  ],
 })
 export class DatabaseModule {}
