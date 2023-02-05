@@ -1,4 +1,4 @@
-import { Length, IsNotEmpty, IsOptional } from 'class-validator';
+import { Length, IsNotEmpty } from 'class-validator';
 
 export class CreateUserDto {
   @Length(8)

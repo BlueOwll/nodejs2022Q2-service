@@ -3,7 +3,6 @@ import {
   Get,
   Post,
   Body,
-  Patch,
   Param,
   Delete,
   Put,
@@ -14,7 +13,6 @@ import { UsersService } from './users.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdatePasswordDto } from './dto/update-password.dto';
 import { FindOneParams } from './dto/find-one-params.dto';
-import { User } from './entities/user.entity';
 import { PasswordError } from 'src/database/users-db/users-db.storage';
 import { OutputUserDto } from './dto/output-user.dto';
 import {

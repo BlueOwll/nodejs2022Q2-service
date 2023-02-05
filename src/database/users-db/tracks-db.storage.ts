@@ -38,6 +38,16 @@ export class TracksDbStorage {
     return this.tracks.find((item) => item.id === id);
   }
 
+  async findMany(key: string, value: string) {
+    return this.tracks.filter((item) => {
+      if (item[key]) {
+        return item[key] === value;
+      } else {
+        return false;
+      }
+    });
+  }
+
   async update(id: string, trackDto: UpdateTrackDto): Promise<Track> {
     const trackIdx = this.tracks.findIndex((entity) => entity.id === id);
 
