@@ -24,8 +24,14 @@ npm start
 ```
 
 After starting the app on port (4000 as default) you can open
-in your browser OpenAPI documentation by typing http://localhost:4000/doc/.
+in your browser OpenAPI documentation by typing http://localhost:4000/doc/. unfortunately not updated
 For more information about OpenAPI/Swagger please visit https://swagger.io/.
+
+## Notes for Postman testing
+
+for updating request ```PUT``` is used, so all the fields of item entity are required.   
+Port can be specified in ```.env``` file. You can find the example in ```.env.example ```   
+By default port 4000 is used.   
 
 ## Testing
 
