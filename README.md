@@ -29,7 +29,7 @@ For more information about OpenAPI/Swagger please visit https://swagger.io/.
 
 ## Notes for Postman testing
 
-for updating request ```PUT``` is used, so all the fields of item entity are required.   
+for updating request ```PUT``` is used, so the new entity replaces the old one.   
 Port can be specified in ```.env``` file. You can find the example in ```.env.example ```   
 By default port 4000 is used.   
 
