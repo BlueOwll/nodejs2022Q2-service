@@ -1,0 +1,40 @@
+version: '3.0'
+
+services:
+  server:
+    image: rest-service
+    container_name: rest-service-server
+    build: .
+    # command: sh -c "npm run start:dev"
+    env_file: .env
+    depends_on:
+      - db
+    networks:
+      - app-network
+    ports:
+      - ${PORT}:${PORT}
+    restart: on-failure
+    volumes:
+      - type: bind
+        source: ./
+        target: /usr/src/rest-service
+  db:
+    image: postgres
+    build: ./postgres
+    container_name: rest-service-db
+    env_file: .env
+
+    environment:
+      PGDATA: /var/lib/postgresql/data/pgdata
+      POSTGRES_PASSWORD: password
+    networks:
+      - app-network
+    restart: on-failure
+    volumes:
+      - pgdb:/var/lib/postgresql/data
+volumes: 
+  pgdb:
+networks:
+  app-network:
+    name: custom-network
+    driver: bridge
