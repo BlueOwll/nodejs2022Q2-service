@@ -5,7 +5,7 @@ services:
     image: rest-service
     container_name: rest-service-server
     build: .
-    # command: sh -c "npm run start:dev"
+    command: sh -c "npm run start:dev"
     env_file: .env
     depends_on:
       - db
@@ -15,9 +15,8 @@ services:
       - ${PORT}:${PORT}
     restart: on-failure
     volumes:
-      - type: bind
-        source: ./
-        target: /usr/src/rest-service
+      - .:/usr/src/rest-service
+      - node_modules:/usr/src/rest-service/node_modules
   db:
     image: postgres
     build: ./postgres
@@ -34,6 +33,7 @@ services:
       - pgdb:/var/lib/postgresql/data
 volumes: 
   pgdb:
+  node_modules:
 networks:
   app-network:
     name: custom-network
