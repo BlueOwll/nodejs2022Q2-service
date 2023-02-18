@@ -28,8 +28,11 @@ in your browser OpenAPI documentation by typing http://localhost:4000/doc/. unfo
 For more information about OpenAPI/Swagger please visit https://swagger.io/.
 
 ## Running docker image
+There is a docker-compose.yaml file for creating application image
+application is launching in watch mode
+all envirenment variables are in .env file
 
-for running multi-container app from docker image:
+for running multi-container app from docker image (that can take some time):
 ```
 docker compose up
 ```
