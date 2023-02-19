@@ -3,6 +3,7 @@ import * as dotenv from 'dotenv'; // see https://github.com/motdotla/dotenv#how-
 dotenv.config();
 
 import { User } from 'src/users/entities/user.entity';
+import { Track } from 'src/tracks/entities/track.entity';
 
 export const PORT = parseInt(process.env.PORT, 10) || 4000;
 
@@ -13,7 +14,7 @@ export const databaseConfig = {
   username: process.env.POSTGRES_USER,
   password: process.env.POSTGRES_PASSWORD,
   database: process.env.POSTGRES_DB,
-  entities: [User],
+  entities: [User, Track],
   subscribers: [],
   migrations: [],
   synchronize: true,

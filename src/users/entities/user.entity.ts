@@ -5,8 +5,14 @@ import {
   Generated,
   PrimaryColumn,
   UpdateDateColumn,
+  ValueTransformer,
   VersionColumn,
 } from 'typeorm';
+
+export const bigint: ValueTransformer = {
+  to: (entityValue: number) => entityValue,
+  from: (databaseValue: string): number => parseInt(databaseValue, 10),
+};
 
 @Entity()
 export class User {
@@ -23,9 +29,9 @@ export class User {
   @VersionColumn()
   version: number; // integer number, increments on update
 
-  @CreateDateColumn()
+  @Column('bigint', { transformer: [bigint] })
   createdAt: number; // timestamp of creation
 
-  @UpdateDateColumn()
+  @Column('bigint', { transformer: [bigint] })
   updatedAt: number; // timestamp of last update
 }

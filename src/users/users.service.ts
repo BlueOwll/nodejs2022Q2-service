@@ -17,7 +17,11 @@ export class UsersService {
 
   async create(createUserDto: CreateUserDto): Promise<OutputUserDto> {
     const { password, ...outputUser } = await this.usersRepository.save(
-      this.usersRepository.create(createUserDto),
+      this.usersRepository.create({
+        ...createUserDto,
+        createdAt: Date.now(),
+        updatedAt: Date.now(),
+      }),
     );
     return outputUser as OutputUserDto;
   }
@@ -44,12 +48,15 @@ export class UsersService {
     if (user.password !== updatePasswordDto.oldPassword)
       throw new PasswordError('Wrong password');
 
-    return this.getOutputUser(
-      await this.usersRepository.save({
-        id,
-        password: updatePasswordDto.newPassword,
-      }),
-    );
+    const updatedUser = await this.usersRepository.save({
+      id,
+      password: updatePasswordDto.newPassword,
+      updatedAt: Date.now(),
+    });
+    console.log(user);
+    console.log(Date.now());
+    console.log(typeof Date.now());
+    return this.getOutputUser({ ...user, ...updatedUser });
 
     // return await this.usersRepository.findOneBy({ id });
     // const user = await this.usersRepository.update(id, updatePasswordDto);
