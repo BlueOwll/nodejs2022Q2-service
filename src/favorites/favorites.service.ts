@@ -42,22 +42,12 @@ export class FavoritesService {
         },
       })
     ).map((item) => item.artist);
-    // result.artists = await Promise.all(
-    //   favorites.artists.map(
-    //     async (id) => await this.artistsDbStorage.findOne(id),
-    //   ),
-    // );
-    // result.albums = await Promise.all(
-    //   favorites.albums.map(
-    //     async (id) => await this.albumsDbStorage.findOne(id),
-    //   ),
-    // );
     return result;
   }
 
   async addTrack(id: string) {
     try {
-      const result = await this.tracksRepository.save(
+      await this.tracksRepository.save(
         this.tracksRepository.create({ trackId: id }),
       );
       return { message: 'Track added to favorites' } as MessageFavoritesDto;
@@ -77,7 +67,7 @@ export class FavoritesService {
 
   async addArtist(id: string) {
     try {
-      const result = await this.artistsRepository.save(
+      await this.artistsRepository.save(
         this.artistsRepository.create({ artistId: id }),
       );
       return { message: 'Artist added to favorites' } as MessageFavoritesDto;
@@ -98,7 +88,7 @@ export class FavoritesService {
   }
   async addAlbum(id: string) {
     try {
-      const result = await this.albumsRepository.save(
+      await this.albumsRepository.save(
         this.albumsRepository.create({ albumId: id }),
       );
       return { message: 'Album added to favorites' } as MessageFavoritesDto;

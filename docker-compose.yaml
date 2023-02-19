@@ -22,10 +22,8 @@ services:
     build: ./postgres
     container_name: rest-service-db
     env_file: .env
-
     environment:
       PGDATA: /var/lib/postgresql/data/pgdata
-      POSTGRES_PASSWORD: password
     networks:
       - app-network
     restart: on-failure

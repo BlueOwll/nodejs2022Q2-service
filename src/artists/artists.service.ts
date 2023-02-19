@@ -1,9 +1,5 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { ArtistsDbStorage } from 'src/database/storages/artists-db.storage';
-import { FavoritesDbStorage } from 'src/database/storages/favorites-db.storage';
-import { TracksDbStorage } from 'src/database/storages/tracks-db.storage';
-import { UpdateTrackDto } from 'src/tracks/dto/update-track.dto';
 import { Repository } from 'typeorm';
 import { CreateArtistDto } from './dto/create-artist.dto';
 import { UpdateArtistDto } from './dto/update-artist.dto';

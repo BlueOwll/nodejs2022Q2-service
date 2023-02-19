@@ -2,11 +2,6 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 
-import { Artist } from 'src/artists/entities/artist.entity';
-import { AlbumsDbStorage } from 'src/database/storages/albums-db.storage';
-import { FavoritesDbStorage } from 'src/database/storages/favorites-db.storage';
-import { TracksDbStorage } from 'src/database/storages/tracks-db.storage';
-import { UpdateTrackDto } from 'src/tracks/dto/update-track.dto';
 import { CreateAlbumDto } from './dto/create-album.dto';
 import { UpdateAlbumDto } from './dto/update-album.dto';
 import { Album } from './entities/album.entity';
