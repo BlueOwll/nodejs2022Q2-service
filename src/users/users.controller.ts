@@ -9,16 +9,18 @@ import {
   NotFoundException,
   HttpCode,
 } from '@nestjs/common';
-import { UsersService } from './users.service';
-import { CreateUserDto } from './dto/create-user.dto';
-import { UpdatePasswordDto } from './dto/update-password.dto';
-import { FindOneParams } from './dto/find-one-params.dto';
-import { PasswordError } from 'src/database/storages/users-db.storage';
-import { OutputUserDto } from './dto/output-user.dto';
 import {
   ForbiddenException,
   InternalServerErrorException,
 } from '@nestjs/common/exceptions';
+
+import { UsersService } from './users.service';
+import { CreateUserDto } from './dto/create-user.dto';
+import { UpdatePasswordDto } from './dto/update-password.dto';
+import { FindOneParams } from './dto/find-one-params.dto';
+import { OutputUserDto } from './dto/output-user.dto';
+
+import { PasswordError } from 'src/constants/errors';
 
 @Controller('user')
 export class UsersController {

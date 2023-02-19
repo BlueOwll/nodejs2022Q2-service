@@ -9,13 +9,13 @@ import { TracksModule } from './tracks/tracks.module';
 import { ArtistsModule } from './artists/artists.module';
 import { AlbumsModule } from './albums/albums.module';
 import { FavoritesModule } from './favorites/favorites.module';
-import config from './config/config';
+import { databaseConfig } from './config/config';
+import { TypeOrmModule } from '@nestjs/typeorm';
 
 @Module({
   imports: [
-    ConfigModule.forRoot({
-      load: [config],
-    }),
+    ConfigModule.forRoot(),
+    TypeOrmModule.forRoot(databaseConfig),
     UsersModule,
     DatabaseModule,
     TracksModule,
