@@ -38,8 +38,7 @@ export class TracksService {
     const track = await this.tracksRepository.findOneBy({ id });
     if (!track) return null;
 
-    await this.tracksRepository.delete(id);
+    return await this.tracksRepository.remove(track);
     // await this.favoritesDbStorage.deleteTrack(id);
-    return track;
   }
 }

@@ -4,6 +4,8 @@ dotenv.config();
 
 import { User } from 'src/users/entities/user.entity';
 import { Track } from 'src/tracks/entities/track.entity';
+import { Artist } from 'src/artists/entities/artist.entity';
+import { Album } from 'src/albums/entities/album.entity';
 
 export const PORT = parseInt(process.env.PORT, 10) || 4000;
 
@@ -14,7 +16,7 @@ export const databaseConfig = {
   username: process.env.POSTGRES_USER,
   password: process.env.POSTGRES_PASSWORD,
   database: process.env.POSTGRES_DB,
-  entities: [User, Track],
+  entities: [User, Track, Artist, Album],
   subscribers: [],
   migrations: [],
   synchronize: true,

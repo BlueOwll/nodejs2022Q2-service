@@ -54,6 +54,7 @@ export class UsersService {
       updatedAt: Date.now(),
     });
     console.log(user);
+    console.log(updatedUser);
     console.log(Date.now());
     console.log(typeof Date.now());
     return this.getOutputUser({ ...user, ...updatedUser });

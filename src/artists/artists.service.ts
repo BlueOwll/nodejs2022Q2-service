@@ -1,48 +1,57 @@
 import { Injectable } from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
 import { ArtistsDbStorage } from 'src/database/storages/artists-db.storage';
 import { FavoritesDbStorage } from 'src/database/storages/favorites-db.storage';
 import { TracksDbStorage } from 'src/database/storages/tracks-db.storage';
 import { UpdateTrackDto } from 'src/tracks/dto/update-track.dto';
+import { Repository } from 'typeorm';
 import { CreateArtistDto } from './dto/create-artist.dto';
 import { UpdateArtistDto } from './dto/update-artist.dto';
+import { Artist } from './entities/artist.entity';
 
 @Injectable()
 export class ArtistsService {
   constructor(
-    private readonly artistsDbStorage: ArtistsDbStorage,
-    private readonly tracksDbStorage: TracksDbStorage,
-    private readonly favoritesDbStorage: FavoritesDbStorage,
+    @InjectRepository(Artist)
+    private artistsRepository: Repository<Artist>, // private readonly artistsDbStorage: ArtistsDbStorage, // private readonly tracksDbStorage: TracksDbStorage, // private readonly favoritesDbStorage: FavoritesDbStorage,
   ) {}
 
   async create(createArtistDto: CreateArtistDto) {
-    return await this.artistsDbStorage.create(createArtistDto);
+    return await this.artistsRepository.save(
+      this.artistsRepository.create(createArtistDto),
+    );
   }
 
   async findAll() {
-    return this.artistsDbStorage.findAll();
+    return this.artistsRepository.find();
   }
 
   async findOne(id: string) {
-    return this.artistsDbStorage.findOne(id);
+    return this.artistsRepository.findOneBy({ id });
   }
 
   async update(id: string, updateArtistDto: UpdateArtistDto) {
-    return this.artistsDbStorage.update(id, updateArtistDto);
+    const artist = await this.artistsRepository.findOneBy({ id });
+    if (!artist) return null;
+    return this.artistsRepository.save({ id, ...artist, ...updateArtistDto });
   }
 
   async remove(id: string) {
-    const removedArtist = await this.artistsDbStorage.delete(id);
-    if (!removedArtist) return null;
+    const artist = await this.artistsRepository.findOneBy({ id });
+    if (!artist) return null;
+    return this.artistsRepository.remove(artist);
+    // const removedArtist = await this.artistsDbStorage.delete(id);
+    // if (!removedArtist) return null;
 
-    const tracks = await this.tracksDbStorage.findMany('artistId', id);
-    tracks.forEach(async (item) => {
-      const { id: trackId, ...updateTrackDto } = item;
-      await this.tracksDbStorage.update(trackId, {
-        ...updateTrackDto,
-        artistId: null,
-      } as UpdateTrackDto);
-    });
-    await this.favoritesDbStorage.deleteArtist(id);
-    return removedArtist;
+    // const tracks = await this.tracksDbStorage.findMany('artistId', id);
+    // tracks.forEach(async (item) => {
+    //   const { id: trackId, ...updateTrackDto } = item;
+    //   await this.tracksDbStorage.update(trackId, {
+    //     ...updateTrackDto,
+    //     artistId: null,
+    //   } as UpdateTrackDto);
+    // });
+    // await this.favoritesDbStorage.deleteArtist(id);
+    // return removedArtist;
   }
 }
