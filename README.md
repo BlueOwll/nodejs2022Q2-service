@@ -40,6 +40,8 @@ or in detouched mode:
 ```
 docker compose up -d
 ```
+```npm run test``` can be running after that
+
 for scanning image for vulnerabilities:
 ```
 npm run docker:scan
