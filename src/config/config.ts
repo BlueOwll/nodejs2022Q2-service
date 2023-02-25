@@ -12,6 +12,8 @@ import { FavoritesAlbum } from 'src/favorites/entities/favoriteAlbum.entity';
 
 export const PORT = parseInt(process.env.PORT, 10) || 4000;
 
+export const passwordSalt = process.env.CRYPT_SALT;
+
 export const databaseConfig = {
   type: 'postgres',
   host: process.env.POSTGRES_HOST,
