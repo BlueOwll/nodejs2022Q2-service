@@ -8,7 +8,7 @@ import { FavoritesAlbum } from '../favorites/entities/favoriteAlbum.entity';
 import { FavoritesArtist } from '../favorites/entities/favoriteArtist.entity';
 import { FavoritesTrack } from '../favorites/entities/favoriteTrack.entity';
 import { Track } from '../tracks/entities/track.entity';
-import { newMigration1676935807929 } from './migrations/1676935807929-newMigration';
+// import { newMigration1676935807929 } from './migrations/1676935807929-newMigration';
 dotenv.config();
 
 const dataSourceConfig = {
@@ -28,7 +28,7 @@ const dataSourceConfig = {
     FavoritesArtist,
   ],
   subscribers: [],
-  migrations: [newMigration1676935807929],
+  migrations: ['./migrations/'],
   synchronize: false,
 } as DataSourceOptions;
 
