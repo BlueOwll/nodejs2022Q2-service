@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { v4 as uuidv4 } from 'uuid';
 
 import { CreateUserDto } from 'src/users/dto/create-user.dto';
-import { User } from 'src/users/entities/user.entity';
+import User from 'src/users/entities/user.entity';
 import { UpdatePasswordDto } from 'src/users/dto/update-password.dto';
 
 export class PasswordError extends Error {

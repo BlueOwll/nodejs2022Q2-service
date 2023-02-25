@@ -1,4 +1,4 @@
-import { Track } from 'src/tracks/entities/track.entity';
+import { Track } from './../../tracks/entities/track.entity';
 import { Entity, ManyToOne, PrimaryColumn } from 'typeorm';
 
 @Entity()
