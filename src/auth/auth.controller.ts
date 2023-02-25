@@ -1,8 +1,13 @@
-import { Controller, Post, Body, HttpCode } from '@nestjs/common';
+import {
+  Controller,
+  Post,
+  Body,
+  HttpCode,
+  ForbiddenException,
+} from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { SignupAuthDto } from './dto/signup-auth.dto';
 import { LoginAuthDto } from './dto/login-auth.dto';
-import { CreateUserDto } from 'src/users/dto/create-user.dto';
 
 @Controller('auth')
 export class AuthController {
@@ -10,12 +15,14 @@ export class AuthController {
 
   @Post('signup')
   @HttpCode(201)
-  signup(@Body() signupAuthDto: SignupAuthDto) {
+  async signup(@Body() signupAuthDto: SignupAuthDto) {
     return this.authService.signup(signupAuthDto);
   }
 
   @Post('login')
-  login(@Body() loginAuthDto: LoginAuthDto) {
-    return this.authService.login(loginAuthDto);
+  async login(@Body() loginAuthDto: LoginAuthDto) {
+    const loggedUser = await this.authService.login(loginAuthDto);
+    if (loggedUser) return loggedUser;
+    throw new ForbiddenException('Login or password is incorrect');
   }
 }

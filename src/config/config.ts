@@ -12,7 +12,12 @@ import { FavoritesAlbum } from 'src/favorites/entities/favoriteAlbum.entity';
 
 export const PORT = parseInt(process.env.PORT, 10) || 4000;
 
-export const passwordSalt = process.env.CRYPT_SALT;
+export const saltRound = parseInt(process.env.CRYPT_SALT) || 10;
+
+export const jwtSecret = process.env.JWT_SECRET_KEY;
+export const jwtSecretRefresh = process.env.JWT_SECRET_REFRESH_KEY;
+export const tokenExpireTime = process.env.TOKEN_EXPIRE_TIME;
+export const refreshTokenExpireTime = process.env.TOKEN_REFRESH_EXPIRE_TIME;
 
 export const databaseConfig = {
   type: 'postgres',
