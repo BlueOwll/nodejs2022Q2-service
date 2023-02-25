@@ -57,4 +57,8 @@ export class AuthService {
     }
     return null;
   }
+
+  async validateToken(token: string) {
+    return await this.jwtService.verify(token);
+  }
 }

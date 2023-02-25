@@ -16,5 +16,6 @@ import { jwtSecret, tokenExpireTime } from 'src/config/config';
       signOptions: { expiresIn: tokenExpireTime },
     }),
   ],
+  exports: [AuthService],
 })
 export class AuthModule {}
