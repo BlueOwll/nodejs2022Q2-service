@@ -8,7 +8,7 @@ import {
 import { AuthService } from './auth.service';
 import { SignupAuthDto } from './dto/signup-auth.dto';
 import { LoginAuthDto } from './dto/login-auth.dto';
-import { Public } from './auth.guard';
+import { Public } from '../guards/auth.guard';
 
 @Controller('auth')
 export class AuthController {

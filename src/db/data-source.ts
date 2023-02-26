@@ -19,6 +19,7 @@ const dataSourceConfig = {
   password: process.env.POSTGRES_PASSWORD,
   database: process.env.POSTGRES_DB,
   entities: [
+    // 'src/**/entities/*.entity.ts']
     User,
     Track,
     Artist,

@@ -13,7 +13,8 @@ import { databaseConfig } from './config/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { AuthModule } from './auth/auth.module';
 import { APP_GUARD } from '@nestjs/core';
-import { AuthGuard } from './auth/auth.guard';
+import { AuthGuard } from './guards/auth.guard';
+import { LoggingModule } from './logging/logging.module';
 
 @Module({
   imports: [
@@ -26,6 +27,7 @@ import { AuthGuard } from './auth/auth.guard';
     AlbumsModule,
     FavoritesModule,
     AuthModule,
+    LoggingModule,
   ],
   controllers: [AppController],
   providers: [
