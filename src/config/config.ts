@@ -14,10 +14,12 @@ export const PORT = parseInt(process.env.PORT, 10) || 4000;
 
 export const saltRound = parseInt(process.env.CRYPT_SALT) || 10;
 
-export const jwtSecret = process.env.JWT_SECRET_KEY;
-export const jwtSecretRefresh = process.env.JWT_SECRET_REFRESH_KEY;
-export const tokenExpireTime = process.env.TOKEN_EXPIRE_TIME;
-export const refreshTokenExpireTime = process.env.TOKEN_REFRESH_EXPIRE_TIME;
+export const jwtSecret = process.env.JWT_SECRET_KEY || '42';
+export const jwtSecretRefresh =
+  process.env.JWT_SECRET_REFRESH_KEY || 'again 42';
+export const tokenExpireTime = process.env.TOKEN_EXPIRE_TIME || '1h';
+export const refreshTokenExpireTime =
+  process.env.TOKEN_REFRESH_EXPIRE_TIME || '24h';
 
 export const databaseConfig = {
   type: 'postgres',
