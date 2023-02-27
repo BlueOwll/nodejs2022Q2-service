@@ -1,19 +1,23 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { PasswordError } from 'src/constants/errors';
+import { LoggingService } from 'src/logging/logging.service';
 //import { UsersDbStorage } from 'src/database/storages/users-db.storage';
 import { Repository } from 'typeorm';
 import { CreateUserDto } from './dto/create-user.dto';
 import { OutputUserDto } from './dto/output-user.dto';
 import { UpdatePasswordDto } from './dto/update-password.dto';
-import { User } from './entities/user.entity';
+import User from './entities/user.entity';
 
 @Injectable()
 export class UsersService {
   constructor(
     @InjectRepository(User)
     private usersRepository: Repository<User>,
-  ) {}
+    private logging: LoggingService,
+  ) {
+    this.logging.setContext('UserService');
+  }
 
   async create(createUserDto: CreateUserDto): Promise<OutputUserDto> {
     const { password, ...outputUser } = await this.usersRepository.save(

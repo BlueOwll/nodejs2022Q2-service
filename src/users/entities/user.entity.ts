@@ -9,13 +9,13 @@ import {
   VersionColumn,
 } from 'typeorm';
 
-export const bigint: ValueTransformer = {
+const bigint: ValueTransformer = {
   to: (entityValue: number) => entityValue,
   from: (databaseValue: string): number => parseInt(databaseValue, 10),
 };
 
 @Entity()
-export class User {
+export default class User {
   @PrimaryColumn()
   @Generated('uuid')
   id: string; // uuid v4

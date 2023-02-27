@@ -2,7 +2,7 @@ import { TypeOrmModuleOptions } from '@nestjs/typeorm';
 import * as dotenv from 'dotenv'; // see https://github.com/motdotla/dotenv#how-do-i-use-dotenv-with-import
 dotenv.config();
 
-import { User } from 'src/users/entities/user.entity';
+import User from 'src/users/entities/user.entity';
 import { Track } from 'src/tracks/entities/track.entity';
 import { Artist } from 'src/artists/entities/artist.entity';
 import { Album } from 'src/albums/entities/album.entity';
@@ -11,6 +11,15 @@ import { FavoritesTrack } from 'src/favorites/entities/favoriteTrack.entity';
 import { FavoritesAlbum } from 'src/favorites/entities/favoriteAlbum.entity';
 
 export const PORT = parseInt(process.env.PORT, 10) || 4000;
+
+export const saltRound = parseInt(process.env.CRYPT_SALT) || 10;
+
+export const jwtSecret = process.env.JWT_SECRET_KEY || '42';
+export const jwtSecretRefresh =
+  process.env.JWT_SECRET_REFRESH_KEY || 'again 42';
+export const tokenExpireTime = process.env.TOKEN_EXPIRE_TIME || '1h';
+export const refreshTokenExpireTime =
+  process.env.TOKEN_REFRESH_EXPIRE_TIME || '24h';
 
 export const databaseConfig = {
   type: 'postgres',

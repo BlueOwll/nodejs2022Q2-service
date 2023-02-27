@@ -10,6 +10,7 @@
 ```
 git clone {repository URL}
 ```
+checkout branch feat-auth-logging
 
 ## Installing NPM modules
 
@@ -49,7 +50,7 @@ npm run docker:scan
 ## Notes for Postman testing
 
 for updating request ```PUT``` is used, so the new entity replaces the old one.   
-Port can be specified in ```.env``` file. You can find the example in ```.env.example ``` or just rename it to ````.env```  
+environment variables are specified in ```.env``` file. You can find the example in ```.env.example ``` or just rename it to ````.env```  
 By default port 4000 is used.   
 
 ## Testing

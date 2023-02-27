@@ -1,4 +1,4 @@
-import { Artist } from 'src/artists/entities/artist.entity';
+import { Artist } from './../../artists/entities/artist.entity';
 import { Entity, ManyToOne, PrimaryColumn } from 'typeorm';
 
 @Entity()
