@@ -12,10 +12,20 @@ async function bootstrap() {
 
   // const reflector = app.get(Reflector);
   // app.useGlobalGuards(new AuthGuard(reflector));
-  app.useLogger(new LoggingService());
+  const logging = new LoggingService();
+  app.useLogger(logging);
 
   await app.listen(PORT, () => {
     console.log('Server started on port that specified in env file', PORT);
+  });
+
+  process.on('uncaughtExceptionMonitor', (err, origin) => {
+    logging.error(err, `uncaught in${origin}`);
+  });
+
+  process.on('unhandledRejection', (reason, promise) => {
+    logging.error(reason, 'unhandledRejection');
+    process.exit(1);
   });
 }
 bootstrap();

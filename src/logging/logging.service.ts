@@ -6,17 +6,27 @@ export class LoggingService extends ConsoleLogger {
     // add your tailored logic here
     // eslint-disable-next-line prefer-rest-params
     super.error(
-      `CustomErr of ${context ? context : 'app'} [${stack}] ${message}`,
+      `CustomErr of ${context ? context : 'app'} [${
+        stack ? stack : 'NestApplication'
+      }] ${message}`,
     );
   }
   log(message: any, stack?: string, context?: string) {
     // add your tailored logic here
     // eslint-disable-next-line prefer-rest-params
     super.log(
-      `CustomLog of ${context ? context : 'app'} [${stack}] ${message}`,
+      `CustomLog of ${context ? context : 'app'} [${
+        stack ? stack : 'NestApplication'
+      }] ${message}`,
     );
   }
-  customLog() {
-    this.log('Please feed the cat!');
+  warn(message: any, stack?: string, context?: string) {
+    // add your tailored logic here
+    // eslint-disable-next-line prefer-rest-params
+    super.error(
+      `CustomWarn of ${context ? context : 'app'} [${
+        stack ? stack : 'NestApplication'
+      }] ${message}`,
+    );
   }
 }

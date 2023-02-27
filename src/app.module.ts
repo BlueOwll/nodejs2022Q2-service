@@ -12,10 +12,11 @@ import { FavoritesModule } from './favorites/favorites.module';
 import { databaseConfig } from './config/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { AuthModule } from './auth/auth.module';
-import { APP_GUARD } from '@nestjs/core';
+import { APP_FILTER, APP_GUARD } from '@nestjs/core';
 import { AuthGuard } from './guards/auth.guard';
 import { LoggingModule } from './logging/logging.module';
 import { LoggingMiddleware } from './middlewares/logging.middleware';
+import { AllExceptionsFilter } from './filters/all-exceptions.filter';
 
 @Module({
   imports: [
@@ -36,6 +37,10 @@ import { LoggingMiddleware } from './middlewares/logging.middleware';
     {
       provide: APP_GUARD,
       useClass: AuthGuard,
+    },
+    {
+      provide: APP_FILTER,
+      useClass: AllExceptionsFilter,
     },
   ],
 })
